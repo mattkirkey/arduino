@@ -51,7 +51,7 @@ int main(void)
 {
 	DDRB |= 0b00011000; //DDRB is also used for USB comms. PORTB3:4:5 are connected to the 10 Pin Header. PORRTB:1 is INPUT from USB. Must set only the DDRB flags required for the header. 
 	DDRB &= 0b11011111; //input for 5
-	PORTB = 0x00100000;//pullup resistor for button
+	PORTB |= 0b00100000;//pullup resistor for button
 	DDRC = 255;
 	PORTC = 255;
 	
@@ -72,7 +72,7 @@ int main(void)
 				Popper(10);
 				break;
 			case pulsator:
-				Pulsator(25);
+				Pulsator(50);
 				break;
 			case police:
 				Police();
@@ -91,7 +91,7 @@ int main(void)
 void CheckButtonPress()
 {
 	FlipYellowAspLed();
-	if(! (PINB & (1<<PD5)))	
+	if(! (PINB & (1<<PD5)))
 	{
 		FlipREDAspLed();
 		delay_ms(5); //debounce
@@ -99,10 +99,15 @@ void CheckButtonPress()
 		{
 			ToggleProgram();
 			delay_ms(100); //longpress
+			PORTB |= 0b00100000;
 			if( !(PINB & (1<<PD5)))	delay_ms(100); //longpress
+			PORTB |= 0b00100000;
 			if( !(PINB & (1<<PD5)))	delay_ms(100); //longpress
+			PORTB |= 0b00100000;
 			if( !(PINB & (1<<PD5)))	delay_ms(100); //longpress
+			PORTB |= 0b00100000;
 			if( !(PINB & (1<<PD5)))	delay_ms(100); //longpress
+			PORTB |= 0b00100000;
 			if( !(PINB & (1<<PD5)))	delay_ms(100); //longpress
 			if( !(PINB & (1<<PD5)))	CurrentPattern = pulsator;
 		}	
@@ -172,7 +177,7 @@ void ClearStrip()
 {
 	for(int i = 0; i<numPixels*24; i++)
 	{
-		  PORTB = 0b00110000;
+		  PORTB = 0b00010000;
 		  PORTB = 0;
 	}	
 	delay_ms(1);
@@ -307,8 +312,9 @@ void WarmUp(int wait)
 
 void Pulsator(int wait)
 {
-	for(int i = 0; i<20; i++)//help keep running while button is still pressed.
+	while ( !(PINB & (1<<PD5)))
 	{
+		
 		for (int i=0; i < numPixels; i++) 
 		{
 			stripBuffer[i] = 0xffffff;
@@ -316,11 +322,12 @@ void Pulsator(int wait)
 		PushBufferToStrip();
 		delay_ms(wait);
 		
-		CheckButtonPress();
+		//CheckButtonPress();
 		
 		ClearStrip();
 		delay_ms(wait);
-		}
+	}
+	CurrentPattern = rainbow;
 }
 
 void Popper(int wait)
