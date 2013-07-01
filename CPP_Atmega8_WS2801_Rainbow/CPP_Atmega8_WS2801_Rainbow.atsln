@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "CPP_Atmega8_WS2801_Rainbow", "CPP_Atmega8_WS2801_Rainbow\CPP_Atmega8_WS2801_Rainbow.cppproj", "{C8FAAD78-8EAF-4AB5-B38E-354ADB33EFC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8FAAD78-8EAF-4AB5-B38E-354ADB33EFC0}.Debug|AVR.ActiveCfg = Debug|AVR
+		{C8FAAD78-8EAF-4AB5-B38E-354ADB33EFC0}.Debug|AVR.Build.0 = Debug|AVR
+		{C8FAAD78-8EAF-4AB5-B38E-354ADB33EFC0}.Release|AVR.ActiveCfg = Release|AVR
+		{C8FAAD78-8EAF-4AB5-B38E-354ADB33EFC0}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
